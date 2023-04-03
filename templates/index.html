@@ -1,6 +1,28 @@
 <!doctype html>
 <head>
-    <title>Hello Azure - Python Quickstart</title>
+
+    <script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    <script src="{{url_for('static', filename='custom.js')}}"></script>
+
+
+    <script>
+      var chatlabel = $("#chat_label").text();
+function chat(){
+var chatlabel = $("#name").val();
+    $.ajax({type: "POST",
+        url: "/chat/" + chatlabel,
+        success:function(result) {
+          alert(result);
+        },
+        error:function(result) {
+          alert('error');
+        }
+    });
+}
+</script>
+    <title>Chatbot</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
@@ -10,21 +32,19 @@
         <div class="px-4 py-3 my-2 text-center">
             <img class="d-block mx-auto mb-4" src="{{ url_for('static', filename='images/azure-icon.svg') }}" alt="Azure Logo" width="192" height="192"/>
             <!-- <img  src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
-            <h1 class="display-6 fw-bold text-primary">Welcome to Azure</h1>            
+            <h1 class="display-6 fw-bold text-primary">Welcome to my Tensorflow chatbot</h1>
           </div>
-        <form method="post" action="{{url_for('hello')}}">
             <div class="col-md-6 mx-auto text-center">
-                <label for="name" class="form-label fw-bold fs-5">Could you please tell me your name?</label>
+                <label id="chat_label" for="name" class="form-label fw-bold fs-5">Type message...</label>
 
                 <!-- <p class="lead mb-2">Could you please tell me your name?</p> -->
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
                     <input type="text" class="form-control" id="name" name="name" style="max-width: 256px;">
                   </div>            
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
-                  <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Say Hello</button>
+                  <button id="enter" class="btn btn-primary btn-lg px-4 gap-3" onclick="chat()">Enter</button>
                 </div>            
             </div>
-        </form>
      </main>      
    </body>
 </html>
